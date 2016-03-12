@@ -206,14 +206,14 @@
                 var data = _.values(json.results)
                 var averageCartVals = (data.reduce(function(sum, a) { return sum + Number(a) }, 0) / data.length).toFixed(2)
                 
-                $('.average-cart').text(addCommas(averageCartVals));
+                $('.average-cart').text(addCommas('$' + averageCartVals));
             });
             
             /* Year to Date Purchases */
             var purchaseQuery = MP.api.events('Purchase', {from: moment().subtract(12, 'months'), unit: 'month'})
             purchaseQuery.done(function(json){
                 var total = _.sum(_.values(json.values()['Purchase']));
-                $('.daily-actives').text('$' + addCommas(total));
+                $('.daily-actives').text(addCommas(total));
                 
             })
             /* Date Refresh */
