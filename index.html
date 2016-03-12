@@ -212,7 +212,7 @@
             averageCart.done(function(json){
                 console.log(json)
                 debugger
-                var data = _.values(json.data.values)
+                var data = _.values(json.results)
                 var averageCartVals = _.values(data[0])[0]
                 
                 $('.average-cart').text(addCommas(averageCartVals));
