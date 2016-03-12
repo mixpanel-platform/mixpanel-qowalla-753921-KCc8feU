@@ -203,7 +203,7 @@
               limit: 10000,
               on: 'number(properties["Purchase Dollar Amount"])',
               unit: 'day',
-              from_date: moment().subtract(12, 'months'),
+              from: moment().subtract(12, 'months'),
             }
             
             var averageCart = MP.api.query('/api/2.0/segmentation/average', purchParams, {dataType: 'json'}) 
