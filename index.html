@@ -213,7 +213,7 @@
                 console.log(json)
                 debugger
                 var data = _.values(json.results)
-                var averageCartVals = (data).reduce(function(sum, a) { return sum + Number(a) }, 0) / data.length).toFixed(2)
+                var averageCartVals = (data.reduce(function(sum, a) { return sum + Number(a) }, 0) / data.length).toFixed(2)
                 
                 $('.average-cart').text(addCommas(averageCartVals));
             });
