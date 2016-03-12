@@ -5,11 +5,358 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://d621cde4587c562960fbe230744f42dc2304ca4f.googledrive.com/host/0BxwayM8qQaCVX0w4RExCOVdhbzQ">
+    <link rel="stylesheet" type="text/css" href="https://a7fd22d7f1e3c3ec503950ff3eb0ca354866665d.googledrive.com/host/0BxwayM8qQaCVMk14UTA0V2JuSVU">
+    <link rel="stylesheet" type="text/css" href="https://5a4961e5c9f1459a1c463234568af125d8e1b386.googledrive.com/host/0BxwayM8qQaCVRmRCSDlXUUtMMnc/">
+    <link rel="stylesheet" type="text/css" href="https://201420392a7158f07d53a8f3e71606645ab03bd2.googledrive.com/host/0BxwayM8qQaCVQldvY2U5Um9FN3M">
+    <!--
+    <link rel="stylesheet" type="text/css" href="app.css">
+    <link rel="stylesheet" type="text/css" href="simple-line-icons.css">
+    <link rel="stylesheet" type="text/css" href="weather-icons.css">
+    <link rel="stylesheet" type="text/css" href="font-awesome.min.css">
+    -->
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+
+
   </head>
   <body class="mixpanel-platform-body">
-    <h1>Hello, World!</h1>
+  <div class="content-wrapper">
+            <div class="content-heading text-center">
+               <!-- START Language list-->
+               <div class="pull-right" style="bottom: 10px;">
+                  <img src="https://d018d7277c9a2a72c253b637c4abe4d24d29449c.googledrive.com/host/0BxwayM8qQaCVOGZvekkxYTNSZVU" height="40px" width="120px">
+                  
+               </div>
+               <div class="pull-left">
+                  <!--<img src="https://904d537b177e27fb469b44e90a0d758dec0d3d71.googledrive.com/host/0BxwayM8qQaCVUTRRRC15OXpvVkk" height="30px" width="124px">-->
+               </div>
+               <!-- END Language list    -->
+               Qowalla's Dashboard
+               <small data-localize="dashboard.WELCOME"></small>
+            </div>
+            <!-- START widgets box-->
+            <div class="row">
+               <div class="col-lg-3 col-sm-3">
+                  <!-- START widget-->
+                  <div class="panel widget bg-primary">
+                     <div class="row row-table">
+                        <div class="col-xs-4 text-center bg-primary-dark pv-lg">
+                           <em class="icon-speedometer fa-3x"></em>
+                        </div>
+                        <div class="col-xs-8 pv-lg">
+                           <div class="h2 mt0 total-downloads text-center">0</div>
+                           <div class="text-uppercase text-center">Downloads</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-sm-3">
+                  <!-- START widget-->
+                  <div class="panel widget bg-purple">
+                     <div class="row row-table">
+                        <div class="col-xs-4 text-center bg-purple-dark pv-lg">
+                           <em class="icon-users fa-3x"></em>
+                        </div>
+                        <div class="col-xs-8 pv-lg">
+                           <div class="h2 mt0 monthly-actives text-center">0
+                              <!--<small>GB</small>-->
+                           </div>
+                           <div class="text-uppercase text-center">WAU'S</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-md-6 col-sm-3">
+                  <!-- START widget-->
+                  <div class="panel widget bg-green">
+                     <div class="row row-table">
+                        <div class="col-xs-4 text-center bg-green-dark pv-lg">
+                           <em class="icon-energy fa-3x"></em>
+                        </div>
+                        <div class="col-xs-8 pv-lg">
+                           <div class="h2 mt0 daily-actives text-center">0</div>
+                           <div class="text-uppercase text-center">Purchases </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-md-6 col-sm-3">
+                  <!-- START date widget-->
+                  <div class="panel widget">
+                     <div class="row row-table">
+                        <div class="col-xs-4 text-center bg-green pv-lg">
+                           <!-- See formats: https://docs.angularjs.org/api/ng/filter/date-->
+                           <div data-now="" data-format="MMMM" class="text-sm date-month text-center"></div>
+                           <br>
+                           <div data-now="" data-format="D" class="h2 mt0 date-day text-center"></div>
+                        </div>
+                        <div class="col-xs-8 pv-lg">
+                           <div data-now="" data-format="dddd" class="text-uppercase date-actual-day text-center"></div>
+                           <br>
+                           <div data-now="" data-format="h:mm" class="h2 mt0 date-time"></div>
+                           <div data-now="" data-format="a" class="text-muted text-sm date-pm"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- END date widget    -->
+               </div>
+            </div>
+            <div class="row">
+                  <div class="col-lg-12">
+                     <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                          Metrics
+                        </div>
+                        <div class="panel-body">
+                         <div id="datatable1_wrapper" class="dataTables_wrapper form-inline no-footer">
+                          <div class="row">
+                            <div class="col-xs-6">
+                              <div class="dataTables_length" id="datatable1_length"></div></div><div class="col-xs-6"><div id="datatable1_filter" class="dataTables_filter"></div></div></div>
+                                <table id="datatable1" class="table table-striped table-hover dataTable no-footer" role="grid" aria-describedby="datatable1_info">
+                              	  <thead>
+	                                <tr role="row">
+	                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 161px;"> Metrics</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 237px;">Current Week</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 237px;">Previous Week</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 237px;">Difference</th>
+                                   	</tr>
+                                  </thead>
+                                  <tbody>
+                                  		
+                                  </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="dataTables_info" id="datatable1_info" role="status" aria-live="polite">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="datatable1_paginate">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+         
+        </div>
+
+
+
     <script>
-      // Run queries and display results here
+        /* Get top events */
+
+        events = [];
+        MP.api.topEvents().done(function(results) {
+          _.each(_.values(results.values()), function(value){
+              events.push(value);
+          })
+          refresh();
+        });
+
+        function toTitleCase(str)
+        {
+          return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+        }
+
+        function addCommas(intNum) {
+          return (intNum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+        }
+
+        var refresh = function(){
+          /* 
+              Get total event counts 
+              event:App Open
+              type:general
+              limit:255
+              on:properties["First App Open"]
+              to_date:2015-11-11
+              from_date:2015-10-13
+              unit:day
+          */
+          var params = {}
+          var paramsLastPeriod = {}
+          var period = null
+          
+          
+          var downloadsQuery = MP.api.segment('App Open', {where:'properties["First App Open"] == true', unit: 'month',type:'unique', from: moment().subtract(12, 'months')})
+          
+          downloadsQuery.done(function(json) {
+            debugger
+              /* Show this now */
+              console.log(json);
+              
+              var total = _.sum(_.values(json.values()['App Open']));
+              $('.total-downloads').text(addCommas(total));
+
+            })
+            /* Query for Monthly Active Users */
+            var monthlyQuery = MP.api.query('/api/2.0/events/', {event:events, unit: 'month', union: 1, type:'unique'}, {dataType: 'json'}) 
+            monthlyQuery.done(function(json){
+                console.log(json)
+                var data = _.values(json.data.values)
+                var monthlyActives = _.values(data[0])[0]
+
+                $('.monthly-actives').text(addCommas(monthlyActives));
+            });
+            
+            /* Year to Date Purchases */
+            var purchaseQuery = MP.api.events('Purchase', {from: moment().subtract(12, 'months'), unit: 'month'})
+            purchaseQuery.done(function(json){
+                var total = _.sum(_.values(json.values()['Purchase']));
+                $('.daily-actives').text(addCommas(total));
+                
+            })
+            /* Date Refresh */
+            var date = new Date();
+            var day = date.getDate()
+            var hours = date.getHours();
+            var convertedHours = hours <= 12 ? hours : hours - 12;
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            var time = convertedHours.toString() + ':' + pad(date.getMinutes()).toString();
+            var month = getCurrentMonth();
+            var actualDay = getCurrentDay();
+
+            $('.date-month').text(month);
+            $('.date-actual-day').text(actualDay);
+            $('.date-day').text(day.toString());
+            $('.date-time').text(time);
+            $('.date-pm').text(ampm);
+
+            var table = $('#datatable1').DataTable();
+            table.clear();
+            /* iOS and Android Downloads 
+            
+            */
+            var platformDownloads = MP.api.segment('App Open', '$os', {where: 'properties["First App Open"] == true', from: moment().subtract(14, 'days'), unit:'week', type:'unique'});
+            platformDownloads.done(function(results){
+
+                var values = _.keys(results.values());
+                _.each(values, function(value){
+                    dates = results.values()[value];
+                    /* sum over data in value of results.values()[key] */
+                    var total = 0;
+                    var sortedDates = _.keys(dates)
+                    var difference = 0;
+                    /* sort and reverse */
+                    sortedDates.sort();
+                    sortedDates.reverse();
+                    console.log(sortedDates)
+                    var currentWeek = dates[sortedDates[0]];
+                    var previousWeek = dates[sortedDates[1]];
+                    if (currentWeek != 0 && previousWeek != 0){
+                        var difference = (currentWeek/previousWeek);
+                    }
+                    table.row.add([value.replace('iPhone OS', 'iPad') + ' Downloads', currentWeek, previousWeek, difference.toFixed(2) + ' %']).draw(false);
+                })
+            });   
+            
+            var totalPurchases = MP.api.segment('Purchase', '$os', {from: moment().subtract(14, 'days'), unit:'week'});
+            totalPurchases.done(function(results){
+              
+                console.log(results.values());
+                var values = _.keys(results.values());
+                _.each(values, function(value){
+                    dates = results.values()[value];
+                    /* sum over data in value of results.values()[key] */
+                    
+                    var sortedDates = _.keys(dates)
+                    var difference = 0;
+                    /* sort and reverse */
+                    sortedDates.sort();
+                    sortedDates.reverse();
+                    console.log(sortedDates)
+                    var currentWeek = dates[sortedDates[0]];
+                    var previousWeek = dates[sortedDates[1]];
+                    if (currentWeek != 0 && previousWeek != 0){
+                        var difference = (currentWeek/previousWeek)*100;
+                    }
+                    
+                    table.row.add([value.replace('iPhone OS', 'iPad') + ' Purchases', currentWeek, previousWeek, difference + ' %']).draw(false);
+                })
+            });   
+            
+            /* Total + Licensed Content Purchases */
+            
+            
+            var purchases = MP.api.events('Licensed Content Purchases', 'Total Content Purchases', {from: moment().subtract(14, 'days'), unit: 'week'})
+            purchases.done(function(results) {
+                var values = _.keys(results.values())
+                _.each(values, function(value){
+                    dates = results.values()[value];
+                    /* sum over data in value of results.values()[key] */
+                    
+                    var sortedDates = _.keys(dates)
+                    var difference = 0;
+                    /* sort and reverse */
+                    sortedDates.sort();
+                    sortedDates.reverse();
+                    console.log(sortedDates)
+                    var currentWeek = dates[sortedDates[0]];
+                    var previousWeek = dates[sortedDates[1]];
+                    if (currentWeek != 0 && previousWeek != 0){
+                        var difference = (currentWeek/previousWeek)*100;
+                    }
+                    table.row.add([value, currentWeek, previousWeek, difference + ' %']).draw(false);
+                })
+            });
+            
+            table.order([0, 'asc']).draw();
+           
+
+        }
+
+        setInterval(refresh, 100000);
+
+        function pad(d) {
+            return (d < 10) ? '0' + d.toString() : d.toString();
+        }
+
+
+        function getCurrentMonth(){
+
+            var d = new Date();
+
+            var month = new Array();
+            month[0] = "JAN"; 
+            month[1] = "FEB";
+            month[2] = "MAR";
+            month[3] = "APR";
+            month[4] = "MAY";
+            month[5] = "JUNE";
+            month[6] = "JULY";
+            month[7] = "AUG";
+            month[8] = "SEPT";
+            month[9] = "OCT";
+            month[10] = "NOV";
+            month[11] = "DEC";
+            var n = month[d.getMonth()];
+
+            return n;
+        }
+
+        function getCurrentDay(){
+            var d = new Date();
+            var weekday = new Array(7);
+            weekday[0]=  "Sunday";
+            weekday[1] = "Monday";
+            weekday[2] = "Tuesday";
+            weekday[3] = "Wednesday";
+            weekday[4] = "Thursday";
+            weekday[5] = "Friday";
+            weekday[6] = "Saturday";
+
+            var n = weekday[d.getDay()];
+            return n;
+        }
+
     </script>
   </body>
 </html>
