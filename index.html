@@ -8,12 +8,6 @@
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!--
-    <link rel="stylesheet" type="text/css" href="app.css">
-    <link rel="stylesheet" type="text/css" href="simple-line-icons.css">
-    <link rel="stylesheet" type="text/css" href="weather-icons.css">
-    <link rel="stylesheet" type="text/css" href="font-awesome.min.css">
-    -->
      <link rel="stylesheet" type="text/css" href="https://d621cde4587c562960fbe230744f42dc2304ca4f.googledrive.com/host/0BxwayM8qQaCVX0w4RExCOVdhbzQ">
      <link rel="stylesheet" type="text/css" href="https://5a4961e5c9f1459a1c463234568af125d8e1b386.googledrive.com/host/0BxwayM8qQaCVRmRCSDlXUUtMMnc/">
   <link rel="stylesheet" type="text/css" href="https://201420392a7158f07d53a8f3e71606645ab03bd2.googledrive.com/host/0BxwayM8qQaCVQldvY2U5Um9FN3M">
@@ -31,7 +25,6 @@
                   
                </div>
                <div class="pull-left">
-                  <!--<img src="https://904d537b177e27fb469b44e90a0d758dec0d3d71.googledrive.com/host/0BxwayM8qQaCVUTRRRC15OXpvVkk" height="30px" width="124px">-->
                </div>
                <!-- END Language list    -->
                Qowalla's Dashboard
@@ -239,8 +232,12 @@
             $('.date-time').text(time);
             $('.date-pm').text(ampm);
 
+            
+            /* update datatable to meet the email from jennifer */
             var table = $('#datatable1').DataTable();
             table.clear();
+            
+            
             /* iOS and Android Downloads 
             
             */
