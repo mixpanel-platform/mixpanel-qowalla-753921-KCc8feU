@@ -205,14 +205,14 @@
               on: 'number(properties["Purchase Dollar Amount"])',
               unit: 'day',
               to_date: '2016-03-11',
-              from_date: '2016-03-11',
+              from_date: '2016-02-11',
             }
             var averageCart = MP.api.query('/api/2.0/segmentation/average', purchParams, {dataType: 'json'}) 
-           averageCart.done(function(json){
+            averageCart.done(function(json){
                 console.log(json)
                 var data = _.values(json.data.values)
                 var averageCartVals = _.values(data[0])[0]
-
+                
                 $('.average-cart').text(addCommas(averageCartVals));
             });
             
