@@ -213,7 +213,7 @@
             var purchaseQuery = MP.api.events('Purchase', {from: moment().subtract(12, 'months'), unit: 'month'})
             purchaseQuery.done(function(json){
                 var total = _.sum(_.values(json.values()['Purchase']));
-                $('.daily-actives').text(addCommas(total));
+                $('.daily-actives').text('$' + addCommas(total));
                 
             })
             /* Date Refresh */
