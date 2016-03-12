@@ -210,7 +210,6 @@
             var averageCart = MP.api.query('/api/2.0/segmentation/average', purchParams, {dataType: 'json'}) 
             averageCart.done(function(json){
                 console.log(json)
-                debugger
                 var data = _.values(json.results)
                 var averageCartVals = (data.reduce(function(sum, a) { return sum + Number(a) }, 0) / data.length).toFixed(2)
                 
