@@ -309,31 +309,31 @@
               unit: 'day',
             }
             
-          MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,dateRange), {dataType: 'json'}).done(function(foo){
-            debugger
-          })
+          var currentPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,dateRange), {dataType: 'json'})
           
-          MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'}).done(function(bar){
-            
+          var previousPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'})
+          $.when(currentPurch, previousPurch).done(function(current, previous){
+            debugger
           })
           
           var checkoutParams = {
             length: 7,
-            length_unit: day
+            length_unit: 'day'
           }
           
           // double check that > 90 day windows don't break funnels
           // set window to be D/W/M pick start date and we will subtract D/W/M
           // total downloads
-          // done - total purchases
+          // total purchases
           // average order value
-          // conversion rate == total purchases / total app opens
+          // conversion rate == total purchases / total app opens formula
           
-          MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,dateRange)).done(function(foo){
-          })
+          var currCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,dateRange))
           
-          MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,prevRange)).done(function(foo){
-            
+          var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,prevRange))
+          
+          $.when(currentCheckout, previousCheckout).done(function(current, previous){
+            debugger
           })
           
           var formulaParams = {
@@ -341,13 +341,11 @@
             unit: month
           }
           
-          MP.api.query('/api/2.0/formulas', _.extends(formulaParams, dateRange)).done(function(foo){
-            
-          })
+          var currentConv = MP.api.query('/api/2.0/formulas', _.extends(formulaParams, dateRange))
+          var previousConv = MP.api.query('/api/2.0/formulas', _.extends(formulaParams, previousRange))
           
-          
-          MP.api.query('/api/2.0/formulas', _.extends(formulaParams, previousRange)).done(function(foo){
-            
+          $.when(currentConv, previousConv).done(function(current, previous){
+            debugger
           })
           
         }
