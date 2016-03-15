@@ -294,7 +294,7 @@
         
         function tableData(){
           var dateRange = dateSelect.MPDatepicker('value')
-          var dateDiff = moment(moment(dateRange.to).diff(moment(dateRange.from)))
+          var dateDiff = moment(dateRange.to).diff(moment(dateRange.from))
           
           var previousRange = {
             to: dateRange.from, 
