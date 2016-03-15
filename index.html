@@ -294,8 +294,13 @@
         
         function tableData(){
           var dateRange = dateSelect.MPDatepicker('value')
-          debugger
-          var previousRange = {to: dateRange.from()}
+          var dateDiff = moment(moment(dateRange.to).diff(moment(dateRange.from))).unix()
+          
+          var previousRange = {
+            to: dateRange.from(), 
+            from: moment(dateRange.from).subtract(dateDiff).format()
+          }
+          moment(dateRange.to).diff(moment(dateRange.from))).format()
           var tableDownloads
         }
 
