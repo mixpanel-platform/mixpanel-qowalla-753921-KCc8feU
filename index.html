@@ -301,8 +301,57 @@
             from: moment(dateRange.from).subtract(dateDiff)
           }
           debugger
-          var tableDownloads
+          var purchParams = {
+              event: 'Purchase',
+              type: 'general',
+              limit: 10000,
+              on: 'number(properties["Purchase Dollar Amount"])',
+              unit: 'day',
+            }
+            
+          MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,dateRange), {dataType: 'json'}).done(function(foo){
+            debugger
+          })
+          
+          MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'}).done(function(bar){
+            
+          })
+          
+          var checkoutParams = {
+            length: 7,
+            length_unit: day
+          }
+          
+          // double check that > 90 day windows don't break funnels
+          // set window to be D/W/M pick start date and we will subtract D/W/M
+          // total downloads
+          // done - total purchases
+          // average order value
+          // conversion rate == total purchases / total app opens
+          
+          MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,dateRange)).done(function(foo){
+          })
+          
+          MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,prevRange)).done(function(foo){
+            
+          })
+          
+          var formulaParams = {
+            formulas: [{"queries": [{"events": ["Purchase"], "count_type": "general"}, {"constant": 100}, {"events": ["App Open"], "count_type": "general"}], "formula": "(A*B)/(C)"}],
+            unit: month
+          }
+          
+          MP.api.query('/api/2.0/formulas', _.extends(formulaParams, dateRange)).done(function(foo){
+            
+          })
+          
+          
+          MP.api.query('/api/2.0/formulas', _.extends(formulaParams, previousRange)).done(function(foo){
+            
+          })
+          
         }
+        
 
         setInterval(refresh, 100000);
         tableData()
