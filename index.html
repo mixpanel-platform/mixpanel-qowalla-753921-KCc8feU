@@ -297,7 +297,7 @@
           var dateDiff = moment(moment(dateRange.to).diff(moment(dateRange.from))).unix()
           
           var previousRange = {
-            to: dateRange.from(), 
+            to: dateRange.from, 
             from: moment(dateRange.from).subtract(dateDiff).format()
           }
           debugger
