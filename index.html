@@ -103,6 +103,7 @@
                         <div class="panel-heading text-center">
                           Metrics
                         </div>
+                        <div id="dateSelect" style="float: right;"></div><br/><br/>
                         <div class="panel-body">
                          <div id="datatable1_wrapper" class="dataTables_wrapper form-inline no-footer">
                           <div class="row">
@@ -112,8 +113,8 @@
                               	  <thead>
 	                                <tr role="row">
 	                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 161px;"> Metrics</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 237px;">Current Week</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 237px;">Previous Week</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 237px;">Current</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 237px;">Previous</th>
 	                                  <th class="sorting" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 237px;">Difference</th>
                                    	</tr>
                                   </thead>
@@ -144,6 +145,7 @@
 
     <script>
         /* Get top events */
+        var dateSelect  = $('#dateSelect').MPDatepicker();
 
         events = [];
         MP.api.topEvents().done(function(results) {
@@ -183,10 +185,8 @@
           downloadsQuery.done(function(json) {
               /* Show this now */
               console.log(json);
-              
               var total = _.sum(_.values(json.values()['App Open']));
               $('.total-downloads').text(addCommas(total));
-
             })
             
             /* Query for Average Cart Value */
@@ -205,7 +205,6 @@
                 console.log(json)
                 var data = _.values(json.results)
                 var averageCartVals = (data.reduce(function(sum, a) { return sum + Number(a) }, 0) / data.length).toFixed(2)
-                
                 $('.average-cart').text(addCommas('$' + averageCartVals));
             });
             
@@ -216,31 +215,12 @@
                 $('.daily-actives').text(addCommas(total));
                 
             })
-            /* Date Refresh */
-            var date = new Date();
-            var day = date.getDate()
-            var hours = date.getHours();
-            var convertedHours = hours <= 12 ? hours : hours - 12;
-            var ampm = hours >= 12 ? 'pm' : 'am';
-            var time = convertedHours.toString() + ':' + pad(date.getMinutes()).toString();
-            var month = getCurrentMonth();
-            var actualDay = getCurrentDay();
-
-            $('.date-month').text(month);
-            $('.date-actual-day').text(actualDay);
-            $('.date-day').text(day.toString());
-            $('.date-time').text(time);
-            $('.date-pm').text(ampm);
-
-            
             /* update datatable to meet the email from jennifer */
             var table = $('#datatable1').DataTable();
             table.clear();
             
             
-            /* iOS and Android Downloads 
-            
-            */
+            /* iOS and Android Downloads */
             var platformDownloads = MP.api.segment('App Open', '$os', {where: 'properties["First App Open"] == true', from: moment().subtract(14, 'days'), unit:'week', type:'unique'});
             platformDownloads.done(function(results){
 
@@ -260,7 +240,6 @@
                     if (currentWeek != 0 && previousWeek != 0){
                         var difference = (currentWeek/previousWeek);
                     }
-                    table.row.add([value.replace('iPhone OS', 'iPad') + ' Downloads', currentWeek, previousWeek, difference.toFixed(2) + ' %']).draw(false);
                 })
             });   
             
@@ -284,8 +263,6 @@
                     if (currentWeek != 0 && previousWeek != 0){
                         var difference = (currentWeek/previousWeek)*100;
                     }
-                    
-                    table.row.add([value.replace('iPhone OS', 'iPad') + ' Purchases', currentWeek, previousWeek, difference + ' %']).draw(false);
                 })
             });   
             
@@ -310,22 +287,25 @@
                     if (currentWeek != 0 && previousWeek != 0){
                         var difference = (currentWeek/previousWeek)*100;
                     }
-                    table.row.add([value, currentWeek, previousWeek, difference + ' %']).draw(false);
                 })
             });
-            
-            table.order([0, 'asc']).draw();
-           
-
+        }
+        
+        
+        function tableData(){
+          var dateRange = dateSelect.MPDatepicker('value')
+          debugger
+          var previousRange = {to: dateRange.from()}
+          var tableDownloads
         }
 
         setInterval(refresh, 100000);
-
+        tableData()
+        
         function pad(d) {
             return (d < 10) ? '0' + d.toString() : d.toString();
         }
-
-
+        
         function getCurrentMonth(){
 
             var d = new Date();
@@ -362,6 +342,8 @@
             var n = weekday[d.getDay()];
             return n;
         }
+        
+        
 
     </script>
   </body>
