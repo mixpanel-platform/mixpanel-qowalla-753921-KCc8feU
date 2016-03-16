@@ -187,7 +187,6 @@
           
           downloadsQuery.done(function(json) {
               /* Show this now */
-              console.log(json);
               var total = _.sum(_.values(json.values()['App Open']));
               $('.total-downloads').text(addCommas(total));
             })
@@ -205,7 +204,6 @@
             
             var averageCart = MP.api.query('/api/2.0/segmentation/average', purchParams, {dataType: 'json'}) 
             averageCart.done(function(json){
-                console.log(json)
                 var data = _.values(json.results)
                 var averageCartVals = (data.reduce(function(sum, a) { return sum + Number(a) }, 0) / data.length).toFixed(2)
                 $('.average-cart').text(addCommas('$' + averageCartVals));
@@ -237,7 +235,6 @@
                     /* sort and reverse */
                     sortedDates.sort();
                     sortedDates.reverse();
-                    console.log(sortedDates)
                     var currentWeek = dates[sortedDates[0]];
                     var previousWeek = dates[sortedDates[1]];
                     if (currentWeek != 0 && previousWeek != 0){
@@ -249,7 +246,6 @@
             var totalPurchases = MP.api.segment('Purchase', '$os', {from: moment().subtract(14, 'days'), unit:'week'});
             totalPurchases.done(function(results){
               
-                console.log(results.values());
                 var values = _.keys(results.values());
                 _.each(values, function(value){
                     dates = results.values()[value];
@@ -260,7 +256,6 @@
                     /* sort and reverse */
                     sortedDates.sort();
                     sortedDates.reverse();
-                    console.log(sortedDates)
                     var currentWeek = dates[sortedDates[0]];
                     var previousWeek = dates[sortedDates[1]];
                     if (currentWeek != 0 && previousWeek != 0){
@@ -284,7 +279,6 @@
                     /* sort and reverse */
                     sortedDates.sort();
                     sortedDates.reverse();
-                    console.log(sortedDates)
                     var currentWeek = dates[sortedDates[0]];
                     var previousWeek = dates[sortedDates[1]];
                     if (currentWeek != 0 && previousWeek != 0){
@@ -355,7 +349,7 @@
           */
           
           var currPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, dateObj))
-          var previousPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, previousRang))
+          var previousPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, previousRange))
           
           $.when(currPurch, previousPurch).done(function(current, previous){
               debugger
