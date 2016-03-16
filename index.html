@@ -324,8 +324,8 @@
           var previousPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, previousRange))
           
           $.when(currPurch, previousPurch).done(function(current, previous){
-              var currentData =  MP.Data.inst(current.json["Purchase"]).sum().values();
-              var pastData = MP.Data.inst(previous.json["Purchase"]).sum().values();
+              var currentData =  MP.Data.inst(current.json["Purchase"]).avg().values();
+              var pastData = MP.Data.inst(previous.json["Purchase"]).avg().values();
               dataAdd('Total Purchases', currentData, pastData)
             })
           
@@ -356,6 +356,7 @@
           var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,previousRange))
           
           $.when(currCheckout, previousCheckout).done(function(current, previous){
+            debugger
             var currentData =  MP.Data.inst(current.results).sum().values().toFixed(2);
             var pastData = MP.Data.inst(previous.results).sum().values().toFixed(2);
             dataAdd('Checkout', currentData, pastData)
@@ -371,7 +372,9 @@
           
           $.when(currentConv, previousConv).done(function(current, previous){
             debugger
-            
+            //redo this to truly account for % diff
+            // total downloads over time frame / app opens.
+            // Formulas cant work
             var currentData =  MP.Data.inst(current.data.values[0]).sum().values().toFixed(2);
             var pastData = MP.Data.inst(previous.data.values[0]).sum().values().toFixed(2);
             dataAdd('Conversion', currentData, pastData)
