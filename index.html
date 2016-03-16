@@ -312,7 +312,7 @@
           var date = moment(dateSelect.val())
           dateObj = {
             to: date,
-            from: date.subtract(dateSelect.val(), 1)
+            from: date.subtract(1, dateSelect.val())
           }
           
           var previousRange = {
