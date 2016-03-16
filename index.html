@@ -147,7 +147,7 @@
 
     <script>
         /* Get top events */
-        var dateSelect  = $('#dateSelect').datepicker();
+        var dateSelect  = $('#dateSelect').datepicker({maxDate: new Date()});
         var options = {
             items: [
               {label: 'Day', value: 'days'},
