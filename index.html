@@ -119,7 +119,7 @@
         </div>
       </div>
     </div>
-
+</div>
 
 
     <script>
@@ -139,14 +139,7 @@
         
         var unit = $('#dateRange').MPSelect(options);
 
-        var table = $('.table').DataTable( {
-                  columns: [
-                      { title: "Metric" , data: 'Metric' },
-                      { title: "Current", data: 'Current' },
-                      { title: "Previous", data: 'Previous' },
-                      { title: "Difference", data: 'Difference' },
-                    ]
-              });
+       
         events = [];
         MP.api.topEvents().done(function(results) {
           _.each(_.values(results.values()), function(value){
@@ -293,6 +286,14 @@
         
 
         function tableData(){
+           var table = $('.table').DataTable( {
+                  columns: [
+                      { title: "Metric" , data: 'Metric' },
+                      { title: "Current", data: 'Current' },
+                      { title: "Previous", data: 'Previous' },
+                      { title: "Difference", data: 'Difference' },
+                    ]
+              });
           table.clear()
           debugger
           var date = moment(dateSelect.val())
