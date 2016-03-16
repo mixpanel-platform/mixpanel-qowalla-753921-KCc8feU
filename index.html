@@ -358,7 +358,7 @@
           
           var formulaParams = {
             formulas: [{"queries": [{"events": ["Purchase"], "count_type": "general"}, {"constant": 100}, {"events": ["App Open"], "count_type": "general"}], "formula": "(A*B)/(C)"}],
-            unit: month
+            unit: 'month'
           }
           
           var currentConv = MP.api.query('/api/2.0/formulas', _.extends(formulaParams, dateObj))
