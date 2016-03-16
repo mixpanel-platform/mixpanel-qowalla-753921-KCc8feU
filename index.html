@@ -364,8 +364,8 @@
           }
      
           
-          var currDownloads = MP.api.segment('App Open',_.extend(downloadParams,dateObj))
-          var previousDownloads = MP.api.segment('App Open',_.extend(downloadParams,previousRange))
+          var currDownloads = MP.api.segment('App Open',_.extend(downloadsParams,dateObj))
+          var previousDownloads = MP.api.segment('App Open',_.extend(downloadsParams,previousRange))
           
           
           $.when(currDownloads, previosDownloads).done(function(current, previous) {
