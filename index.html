@@ -319,38 +319,11 @@
             var pastData = MP.Data.inst(previous.results).avg().values().toFixed(2);
             dataAdd('Average Cart Size', currentData, pastData)
           })
-          
 
-          
-          // double check that > 90 day windows don't break funnels
-          // set window to be D/W/M pick start date and we will subtract D/W/M
-          // total downloads
-          // total purchases
-          // average order value
-          // conversion rate == total purchases / total app opens formula
-          /*
-          var downloadsParams = {
-            where:'properties["First App Open"] == true', 
-            unit: 'month',type:'unique', 
-          }
-          
-          var currDownloads = MP.api.segment('App Open',_.extend(downloads,dateObj))
-          var previousDownloads = MP.api.segment('App Open',_.extend(downloads,previousRange))
-          
-          
-          $.when(currDownloads, previosDownloads).done(function(current, previous) {
-              debugger
-              var currentData =  MP.Data.inst(current.results).sum().values();
-              var pastData = MP.Data.inst(previous.results).sum().values();
-              dataAdd('Total Downloads', currentData, pastData)
-            })
-          */
-          
           var currPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, dateObj))
           var previousPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, previousRange))
           
           $.when(currPurch, previousPurch).done(function(current, previous){
-              debugger
               var currentData =  MP.Data.inst(current.json["Purchase"]).sum().values();
               var pastData = MP.Data.inst(previous.json["Purchase"]).sum().values();
               dataAdd('Total Purchases', currentData, pastData)
