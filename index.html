@@ -110,7 +110,8 @@
           <div class="panel-body">
             <div id="datatable1_wrapper" class="dataTables_wrapper form-inline no-footer">
               <div class="row">
-                <div class="col-xs-6 table">
+                <div class="col-xs-6">
+                  <table id="table" class="display" width="100%"></table>
                 </div>
               </div>
             </div>
@@ -138,14 +139,14 @@
         
         var unit = $('#dateRange').MPSelect(options);
 
-        var table = $('#table').DataTable( {
+        var table = $('.table').DataTable( {
                   columns: [
                       { title: "Metric" , data: 'Metric' },
                       { title: "Current", data: 'Current' },
                       { title: "Previous", data: 'Previous' },
                       { title: "Difference", data: 'Difference' },
-                  ]
-              } );
+                    ]
+              });
         events = [];
         MP.api.topEvents().done(function(results) {
           _.each(_.values(results.values()), function(value){
@@ -318,7 +319,9 @@
           
           var previousPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'})
           $.when(currentPurch, previousPurch).done(function(current, previous){
-            debugger
+            var currentData =  MP.Data.inst(current.results).sum().values();
+            var pastData = MP.Data.inst(previous.results).sum().values();
+            dataAdd('Purchases', currentData, pastData)
           })
           
           var checkoutParams = {
@@ -338,7 +341,9 @@
           var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,previousRange))
           
           $.when(currCheckout, previousCheckout).done(function(current, previous){
-            debugger
+             var currentData =  MP.Data.inst(current.results).sum().values();
+            var pastData = MP.Data.inst(previous.results).sum().values();
+            dataAdd('Checkout', currentData, pastData)
           })
           
           var formulaParams = {
@@ -350,7 +355,9 @@
           var previousConv = MP.api.query('/api/2.0/formulas', _.extend(formulaParams, previousRange))
           
           $.when(currentConv, previousConv).done(function(current, previous){
-            debugger
+             var currentData =  MP.Data.inst(current.results).sum().values();
+            var pastData = MP.Data.inst(previous.results).sum().values();
+            dataAdd('Conversion', currentData, pastData)
           })
           
         }
@@ -367,7 +374,7 @@
         
         function dataAdd(metric, current, previous){
           var difference = current - previous
-          table.row.add( {
+          table.row.add({
             "Metric": metric,
             "Current": current,
             "Previous": previous,
