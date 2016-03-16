@@ -370,8 +370,8 @@
           
           $.when(currDownloads, previousDownloads).done(function(current, previous) {
               debugger
-              var currentData =  MP.Data.inst(current.results).sum().values();
-              var pastData = MP.Data.inst(previous.results).sum().values();
+              var currentData =  MP.Data.inst(current.json["App Open"]).sum().values();
+              var pastData = MP.Data.inst(previous.json["App Open"]).sum().values();
               dataAdd('Total Downloads', currentData, pastData)
             })
           
