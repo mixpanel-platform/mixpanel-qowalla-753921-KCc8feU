@@ -297,13 +297,13 @@
           var date = moment(dateSelect.val())
           
           var dateObj = {
-            to: date.format(),
-            from: date.subtract(1, unit.val()).format()
+            to: date.utc().format(),
+            from: date.subtract(1, unit.val()).utc().format()
           }
           
           var previousRange = {
-            to: moment(dateObj.from).subtract(1, unit.val()),
-            from: moment(dateObj.from).subtract(2, unit.val())
+            to: moment(dateObj.from).subtract(1, unit.val()).utc().format(),
+            from: moment(dateObj.from).subtract(2, unit.val()).utc().format()
           }
           
           var purchParams = {
