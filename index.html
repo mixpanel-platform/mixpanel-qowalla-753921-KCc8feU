@@ -162,7 +162,7 @@
         };
         
         var unit = $('#dateRange').MPSelect(options);
-
+        dateSelect.on('change', query)
         events = [];
         MP.api.topEvents().done(function(results) {
           _.each(_.values(results.values()), function(value){
@@ -180,7 +180,7 @@
           return (intNum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,');
         }
 
-        var refresh = function(){
+        function query() {
           /* 
               Get total event counts 
               event:App Open
@@ -371,7 +371,6 @@
         }
         
 
-        setInterval(refresh, 100000);
         tableData()
         
         function pad(d) {
