@@ -159,8 +159,7 @@
           query()
         });
 
-        function toTitleCase(str)
-        {
+        function toTitleCase(str){
           return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
         }
 
@@ -320,19 +319,16 @@
               unit: unit.val(),
             }
             
-          var currentPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,dateObj), {dataType: 'json'})
+          var currentAOV = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,dateObj), {dataType: 'json'})
           
-          var previousPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'})
-          $.when(currentPurch, previousPurch).done(function(current, previous){
+          var previousAOV = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'})
+          $.when(currentAOV, previousAOV).done(function(current, previous){
             var currentData =  MP.Data.inst(current.results).avg().values().toFixed(2);
             var pastData = MP.Data.inst(previous.results).avg().values().toFixed(2);
             dataAdd('Average Cart Size', currentData, pastData)
           })
           
-          var checkoutParams = {
-            length: 7,
-            length_unit: 'day',
-          }
+
           
           // double check that > 90 day windows don't break funnels
           // set window to be D/W/M pick start date and we will subtract D/W/M
@@ -358,6 +354,16 @@
             })
           */
           
+          var currPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, dateObj))
+          var previousPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, previousRang))
+          
+          $.when(currPurch, previousPurch).done(function(current, previous){
+              debugger
+              var currentData =  MP.Data.inst(current.json["Purchase"]).sum().values();
+              var pastData = MP.Data.inst(previous.json["Purchase"]).sum().values();
+              dataAdd('Total Purchases', currentData, pastData)
+            })
+          
           var downloadsParams = {
             where:'properties["First App Open"] == true', 
             unit: 'month',type:'unique', 
@@ -369,17 +375,23 @@
           
           
           $.when(currDownloads, previousDownloads).done(function(current, previous) {
-              debugger
               var currentData =  MP.Data.inst(current.json["App Open"]).sum().values();
               var pastData = MP.Data.inst(previous.json["App Open"]).sum().values();
               dataAdd('Total Downloads', currentData, pastData)
             })
+          
+          
+          var checkoutParams = {
+            length: 7,
+            length_unit: 'day',
+          }
           
           var currCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,dateObj))
           
           var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,previousRange))
           
           $.when(currCheckout, previousCheckout).done(function(current, previous){
+            debugger
             var currentData =  MP.Data.inst(current.results).sum().values().toFixed(2);
             var pastData = MP.Data.inst(previous.results).sum().values().toFixed(2);
             dataAdd('Checkout', currentData, pastData)
