@@ -371,8 +371,9 @@
           
           $.when(currentConv, previousConv).done(function(current, previous){
             debugger
-            var currentData =  MP.Data.inst(current.data.values).sum().values().toFixed(2);
-            var pastData = MP.Data.inst(previous.data.values).sum().values().toFixed(2);
+            
+            var currentData =  MP.Data.inst(current.data.values[0]).sum().values().toFixed(2);
+            var pastData = MP.Data.inst(previous.data.values[0]).sum().values().toFixed(2);
             dataAdd('Conversion', currentData, pastData)
           })
           
