@@ -356,12 +356,13 @@
               var pastData = MP.Data.inst(previous.results).sum().values();
               dataAdd('Total Downloads', currentData, pastData)
             })
-            
+          */
+          
           var downloadsParams = {
             where:'properties["First App Open"] == true', 
             unit: 'month',type:'unique', 
           }
-          */
+     
           
           var currDownloads = MP.api.segment('App Open',_.extend(downloadParams,dateObj))
           var previousDownloads = MP.api.segment('App Open',_.extend(downloadParams,previousRange))
