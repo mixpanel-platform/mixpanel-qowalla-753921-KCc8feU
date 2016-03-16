@@ -376,9 +376,9 @@
           var difference = current - previous
           table.row.add({
             "Metric": metric,
-            "Current": current,
-            "Previous": previous,
-            "Difference": difference
+            "Current": current.toFixed(2),
+            "Previous": previous.toFixed(2),
+            "Difference": difference.toFixed(2)
           }).draw();
         }
         
