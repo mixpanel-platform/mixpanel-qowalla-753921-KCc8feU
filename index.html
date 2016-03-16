@@ -306,13 +306,15 @@
         
         function tableData(){
           debugger
-          var dateRange = dateSelect.MPDatepicker('value')
-          var dateDiff = moment(dateRange.to).diff(moment(dateRange.from))
-
+          var date = moment(dateSelect.val())
+          dateObj = {
+            to: date,
+            from: date.subtract(dateSelect.val(), 1)
+          }
           
           var previousRange = {
-            to: dateRange.to.subtract(), 
-            from: moment(dateRange.from).subtract(dateDiff)
+            to: dateObject.from,
+            from: moment(date.from).subtract(date.val())
           }
           
           var purchParams = {
@@ -323,7 +325,7 @@
               unit: 'day',
             }
             
-          var currentPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,dateRange), {dataType: 'json'})
+          var currentPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,dateObj), {dataType: 'json'})
           
           var previousPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'})
           $.when(currentPurch, previousPurch).done(function(current, previous){
@@ -342,7 +344,7 @@
           // average order value
           // conversion rate == total purchases / total app opens formula
           
-          var currCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,dateRange))
+          var currCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,dateObj))
           
           var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,previousRange))
           
@@ -355,7 +357,7 @@
             unit: month
           }
           
-          var currentConv = MP.api.query('/api/2.0/formulas', _.extends(formulaParams, dateRange))
+          var currentConv = MP.api.query('/api/2.0/formulas', _.extends(formulaParams, dateObj))
           var previousConv = MP.api.query('/api/2.0/formulas', _.extends(formulaParams, previousRange))
           
           $.when(currentConv, previousConv).done(function(current, previous){
