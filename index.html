@@ -297,12 +297,12 @@
           var date = moment(dateSelect.val())
           
           var dateObj = {
-            to: date.utc().format('YYYY-MM-DD')
+            to: date.utc().format('YYYY-MM-DD'),
             from: date.subtract(1, unit.val()).utc().format('YYYY-MM-DD')
           }
           
           var previousRange = {
-            to: moment(dateObj.from).subtract(1, unit.val()).utc().format('YYYY-MM-DD')
+            to: moment(dateObj.from).subtract(1, unit.val()).utc().format('YYYY-MM-DD'),
             from: moment(dateObj.from).subtract(2, unit.val()).utc().format('YYYY-MM-DD')
           }
           
