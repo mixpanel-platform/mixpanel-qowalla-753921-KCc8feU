@@ -161,7 +161,7 @@
         };
         
         var unit = $('#dateRange').MPSelect(options);
-        dateSelect.on('change', query)
+
         events = [];
         MP.api.topEvents().done(function(results) {
           _.each(_.values(results.values()), function(value){
@@ -306,7 +306,7 @@
             });
         }
         
-        
+
         function tableData(){
           debugger
           var date = moment(dateSelect.val())
@@ -373,6 +373,9 @@
 
         tableData()
         
+        dateSelect.on('change', tableData)
+        unit.on('change', tableData)
+        
         function pad(d) {
             return (d < 10) ? '0' + d.toString() : d.toString();
         }
@@ -413,9 +416,6 @@
             var n = weekday[d.getDay()];
             return n;
         }
-        
-        
-
     </script>
   </body>
 </html>
