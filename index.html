@@ -310,9 +310,10 @@
         function tableData(){
           debugger
           var date = moment(dateSelect.val())
-          dateObj = {
+          
+          var dateObj = {
             to: date,
-            from: date.subtract(1, dateSelect.val())
+            from: date.subtract(1, unit.val())
           }
           
           var previousRange = {
@@ -351,7 +352,7 @@
           
           var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,previousRange))
           
-          $.when(currentCheckout, previousCheckout).done(function(current, previous){
+          $.when(currCheckout, previousCheckout).done(function(current, previous){
             debugger
           })
           
