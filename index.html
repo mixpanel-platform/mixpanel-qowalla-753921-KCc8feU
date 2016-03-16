@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="https://201420392a7158f07d53a8f3e71606645ab03bd2.googledrive.com/host/0BxwayM8qQaCVQldvY2U5Um9FN3M">
     <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
-
+    <script   src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="   crossorigin="anonymous"></script>
 
   </head>
   <body class="mixpanel-platform-body">
@@ -103,7 +103,8 @@
                         <div class="panel-heading text-center">
                           Metrics
                         </div>
-                        <div id="dateSelect" style="float: right;"></div><br/><br/>
+                        <div id="dateSelect" style="float: left;"></div><br/><br/>
+                        <div id="dateRange" style="float: left;"></div><br/><br/>
                         <div class="panel-body">
                          <div id="datatable1_wrapper" class="dataTables_wrapper form-inline no-footer">
                           <div class="row">
@@ -145,7 +146,17 @@
 
     <script>
         /* Get top events */
-        var dateSelect  = $('#dateSelect').MPDatepicker();
+        var dateSelect  = $('#dateSelect').datepicker();
+        var options = {
+            items: [
+              {label: 'Day', value: 'days'},
+              {label: 'Week', value: 'weeks'},
+              {label: 'Month', value: 'months'}
+              {label: 'Year', value: 'years'},
+            ]
+        };
+        
+        var unit = $('dateRange').MPSelect(options);
 
         events = [];
         MP.api.topEvents().done(function(results) {
@@ -293,13 +304,16 @@
         
         
         function tableData(){
+          debugger
           var dateRange = dateSelect.MPDatepicker('value')
           var dateDiff = moment(dateRange.to).diff(moment(dateRange.from))
+
           
           var previousRange = {
-            to: dateRange.from, 
+            to: dateRange.to.subtract(), 
             from: moment(dateRange.from).subtract(dateDiff)
           }
+          
           var purchParams = {
               event: 'Purchase',
               type: 'general',
@@ -329,7 +343,7 @@
           
           var currCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,dateRange))
           
-          var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,prevRange))
+          var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,previousRange))
           
           $.when(currentCheckout, previousCheckout).done(function(current, previous){
             debugger
