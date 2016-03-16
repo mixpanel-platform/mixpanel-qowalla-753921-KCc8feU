@@ -138,6 +138,14 @@
         };
         
         var unit = $('#dateRange').MPSelect(options);
+        var table = $('#table').DataTable( {
+            columns: [
+                { title: "Metric" , data: 'Metric' },
+                { title: "Current", data: 'Current' },
+                { title: "Previous", data: 'Previous' },
+                { title: "Difference", data: 'Difference' },
+              ]
+        });
 
        
         events = [];
@@ -286,14 +294,7 @@
         
 
         function tableData(){
-           var table = $('.table').DataTable( {
-                  columns: [
-                      { title: "Metric" , data: 'Metric' },
-                      { title: "Current", data: 'Current' },
-                      { title: "Previous", data: 'Previous' },
-                      { title: "Difference", data: 'Difference' },
-                    ]
-              });
+
           table.clear()
           debugger
           var date = moment(dateSelect.val())
