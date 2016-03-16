@@ -324,9 +324,9 @@
           
           var previousPurch = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'})
           $.when(currentPurch, previousPurch).done(function(current, previous){
-            var currentData =  MP.Data.inst(current.results).sum().values();
-            var pastData = MP.Data.inst(previous.results).sum().values();
-            dataAdd('Purchases', currentData, pastData)
+            var currentData =  MP.Data.inst(current.results).avg().values();
+            var pastData = MP.Data.inst(previous.results).avg().values();
+            dataAdd('Average Cart Size', currentData, pastData)
           })
           
           var checkoutParams = {
@@ -341,12 +341,44 @@
           // average order value
           // conversion rate == total purchases / total app opens formula
           
+          var downloadsParams = {
+            where:'properties["First App Open"] == true', 
+            unit: 'month',type:'unique', 
+          }
+          
+          var currDownloads = MP.api.segment('App Open',_.extend(downloads,dateObj))
+          var previousDownloads = MP.api.segment('App Open',_.extend(downloads,previousRange))
+          
+          
+          $.when(currDownloads, previosDownloads).done(function(current, previous) {
+              debugger
+              var currentData =  MP.Data.inst(current.results).sum().values();
+              var pastData = MP.Data.inst(previous.results).sum().values();
+              dataAdd('Total Downloads', currentData, pastData)
+            })
+            
+          var downloadsParams = {
+            where:'properties["First App Open"] == true', 
+            unit: 'month',type:'unique', 
+          }
+          
+          var currDownloads = MP.api.segment('App Open',_.extend(downloads,dateObj))
+          var previousDownloads = MP.api.segment('App Open',_.extend(downloads,previousRange))
+          
+          
+          $.when(currDownloads, previosDownloads).done(function(current, previous) {
+              debugger
+              var currentData =  MP.Data.inst(current.results).sum().values();
+              var pastData = MP.Data.inst(previous.results).sum().values();
+              dataAdd('Total Downloads', currentData, pastData)
+            })
+          
           var currCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,dateObj))
           
           var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,previousRange))
           
           $.when(currCheckout, previousCheckout).done(function(current, previous){
-             var currentData =  MP.Data.inst(current.results).sum().values();
+            var currentData =  MP.Data.inst(current.results).sum().values();
             var pastData = MP.Data.inst(previous.results).sum().values();
             dataAdd('Checkout', currentData, pastData)
           })
