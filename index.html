@@ -143,7 +143,7 @@
       function percent(numerator, denominator){
         var value = 0
         if (denominator != 0){
-          value = Math.floor( numerator / denominator * 100)
+          value = Math.floor( numerator / denominator * 10000) / 100
         }
         return value
       }
@@ -286,6 +286,8 @@
           
           var previousAOV = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'})
           $.when(currentAOV, previousAOV).done(function(current, previous){
+            
+            // make this sum of $ / # of purchases
             var currentData =  MP.Data.inst(current.results).avg().values().toFixed(2);
             var pastData = MP.Data.inst(previous.results).avg().values().toFixed(2);
             dataAdd('Average Order Size', currentData, pastData)
