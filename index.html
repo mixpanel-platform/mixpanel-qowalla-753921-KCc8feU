@@ -357,8 +357,18 @@
           
           $.when(currCheckout, previousCheckout).done(function(current, previous){
             debugger
-            var currentData =  MP.Data.inst(current.results).sum().values().toFixed(2);
-            var pastData = MP.Data.inst(previous.results).sum().values().toFixed(2);
+            var currentUsers = 0
+            var currentConv = 0
+            var prevUsers = 0
+            var prevConv = 0
+            _.each(current[0], function(val, key){ currentUsers += val.count})
+            _.each(current[current.length - 1], function(val, key){ currentConv += val.count})
+            _.each(previous[0], function(val, key){ prevUsers += val.count})
+            _.each(previous[previous.length - 1], function(val, key){ prevConv += val.count})
+            if (currentUsers == 0) { currentUsers = 1}
+            if (prevUsers == 0) { prevUsers = 1}
+            var currentData =  (currentConv / currentUsers).toFixed(2);
+            var pastData = (prevConv / prevUsers).toFixed(2);
             dataAdd('Checkout', currentData, pastData)
           })
           
