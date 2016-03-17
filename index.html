@@ -385,16 +385,22 @@
             unit: unit.val()
           }
           
-          var currentConv = MP.api.query('/api/2.0/formulas', _.extend(formulaParams, dateObj))
-          var previousConv = MP.api.query('/api/2.0/formulas', _.extend(formulaParams, previousRange))
-          
-          $.when(currentConv, previousConv).done(function(current, previous){
+          var segParams = 
+              type: 'general',
+              limit: 10000,
+              unit: unit.val(),
+            }
+          var currentApp = MP.api.segment('App Open', _.extend(segParams, dateObj))
+          var previousApp = MP.api.segment('App Open', _.extend(segParams, previousRange))
+          var currentPurch = MP.api.segment('Purchase', _.extend(segParams, dateObj))
+          var previousPurch = MP.api.segment('Purchase', _.extend(segParams, previousRange))
+          $.when(currentApp, previousApp, currentPurch, previousPurch).done(function(currentApp, previousApp, currentPurch, previousPurch){
             debugger
             //redo this to truly account for % diff
             // total downloads over time frame / app opens.
             // Formulas cant work
-            var currentData =  MP.Data.inst(current.data.values[0]).sum().values().toFixed(2);
-            var pastData = MP.Data.inst(previous.data.values[0]).sum().values().toFixed(2);
+            var currentData =  percent(currentPurch, currentApp);
+            var pastData = percent(previousPurch, previousApp);
             dataAdd('Conversion', currentData, pastData)
           })
           
