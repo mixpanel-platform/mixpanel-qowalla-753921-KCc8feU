@@ -132,7 +132,7 @@
         if (denominator != 0){
           value = Math.floor( numerator / denominator * 100)
         }
-        return String(value) + "%"
+        return value
       }
       
         var dateSelect  = $('#dateSelect').datepicker({
@@ -375,8 +375,8 @@
             _.each(previous[previous.length - 1], function(val, key){ prevConv += val.count})
             if (currentUsers == 0) { currentUsers = 1}
             if (prevUsers == 0) { prevUsers = 1}
-            var currentData = currentConv / currentUsers;
-            var pastData = prevConv / prevUsers;
+            var currentData = percent(currentConv, currentUsers);
+            var pastData = percent(prevConv, prevUsers);
             percentAdd('Checkout', currentData, pastData)
           })
           
@@ -424,9 +424,9 @@
           var difference = current - previous
           table.row.add({
             "Metric": metric,
-            "Current": percent(current),
-            "Previous": percent(previous),
-            "Difference": percent(difference)
+            "Current": String(current) + "%",
+            "Previous": String(previous) + "%",
+            "Difference": String(difference) + "%"
           }).draw();
         }
         function getCurrentMonth(){
