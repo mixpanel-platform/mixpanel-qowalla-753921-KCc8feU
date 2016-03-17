@@ -127,6 +127,14 @@
 
     <script>
         /* Get top events */
+      function percent(numerator, denominator){
+        var value = 0
+        if (denominator != 0){
+          value = Math.floor( numerator / denominator * 100)
+        }
+        return String(value) + "%"
+      }
+      
         var dateSelect  = $('#dateSelect').datepicker({
           maxDate: new Date(),
         });
@@ -367,8 +375,8 @@
             _.each(previous[previous.length - 1], function(val, key){ prevConv += val.count})
             if (currentUsers == 0) { currentUsers = 1}
             if (prevUsers == 0) { prevUsers = 1}
-            var currentData =  (currentConv / currentUsers).toFixed(2);
-            var pastData = (prevConv / prevUsers).toFixed(2);
+            var currentData =  percentAdd(currentConv / currentUsers);
+            var pastData = precentAdd(prevConv / prevUsers);
             dataAdd('Checkout', currentData, pastData)
           })
           
@@ -412,6 +420,15 @@
           }).draw();
         }
         
+        function percentAdd(metric, current, previous){
+          var difference = current - previous
+          table.row.add({
+            "Metric": metric,
+            "Current": percent(current),
+            "Previous": percent(previous),
+            "Difference": percent(difference)
+          }).draw();
+        }
         function getCurrentMonth(){
 
             var d = new Date();
