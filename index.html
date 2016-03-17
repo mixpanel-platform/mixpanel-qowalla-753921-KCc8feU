@@ -364,7 +364,6 @@
           var previousCheckout = MP.api.funnel({"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}, _.extend(checkoutParams,previousRange))
           
           $.when(currCheckout, previousCheckout).done(function(current, previous){
-            debugger
             var currentUsers = 0
             var currentConv = 0
             var prevUsers = 0
