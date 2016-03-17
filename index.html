@@ -375,9 +375,9 @@
             _.each(previous[previous.length - 1], function(val, key){ prevConv += val.count})
             if (currentUsers == 0) { currentUsers = 1}
             if (prevUsers == 0) { prevUsers = 1}
-            var currentData =  percentAdd(currentConv / currentUsers);
-            var pastData = precentAdd(prevConv / prevUsers);
-            dataAdd('Checkout', currentData, pastData)
+            var currentData = currentConv / currentUsers;
+            var pastData = prevConv / prevUsers;
+            percentAdd('Checkout', currentData, pastData)
           })
           
           var formulaParams = {
