@@ -288,7 +288,7 @@
           $.when(currentAOV, previousAOV).done(function(current, previous){
             var currentData =  MP.Data.inst(current.results).avg().values().toFixed(2);
             var pastData = MP.Data.inst(previous.results).avg().values().toFixed(2);
-            dataAdd('Average Cart Size', currentData, pastData)
+            dataAdd('Average Order Size', currentData, pastData)
           })
 
           var currPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, dateObj))
@@ -339,7 +339,7 @@
             if (prevUsers == 0) { prevUsers = 1}
             var currentData = percent(currentConv, currentUsers);
             var pastData = percent(prevConv, prevUsers);
-            percentAdd('Checkout', currentData, pastData)
+            percentAdd('Checkout Completion Date', currentData, pastData)
           })
           
           var formulaParams = {
@@ -362,7 +362,7 @@
             // Formulas cant work
             var currentData =  percent(MP.Data.inst(currentPurch.json["Purchase"]).sum().values(), MP.Data.inst(currentApp.json["App Open"]).sum().values());
             var pastData = percent(MP.Data.inst(previousPurch.json["Purchase"]).sum().values(), MP.Data.inst(previousApp.json["App Open"]).sum().values());
-            percentAdd('Conversion', currentData, pastData)
+            percentAdd('Conversion Rate', currentData, pastData)
           })
           
         }
