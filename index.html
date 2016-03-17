@@ -83,6 +83,19 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-3">
+            <!-- START widget-->
+            <div class="panel widget bg-primary">
+              <div class="row row-table">
+                <div class="col-xs-4 text-center bg-primary-dark pv-lg">
+                  <i class="fa fa-percent fa-3x"></i>
+                </div>
+                <div class="col-xs-8 pv-lg">
+                  <div class="h2 mt0 conversion text-center">0</div>
+                  <div class="text-uppercase text-center">Conversion</div>
+                </div>
+              </div>
+            </div>
+          </div>
             <!-- START date widget-->
             <div class="panel widget">
               <div class="row row-table">
@@ -228,72 +241,23 @@
             var table = $('#datatable1').DataTable();
             table.clear();
             
-            
-            /* iOS and Android Downloads */
-            var platformDownloads = MP.api.segment('App Open', '$os', {where: 'properties["First App Open"] == true', from: moment().subtract(14, 'days'), unit:'week', type:'unique'});
-            platformDownloads.done(function(results){
-
-                var values = _.keys(results.values());
-                _.each(values, function(value){
-                    dates = results.values()[value];
-                    /* sum over data in value of results.values()[key] */
-                    var total = 0;
-                    var sortedDates = _.keys(dates)
-                    var difference = 0;
-                    /* sort and reverse */
-                    sortedDates.sort();
-                    sortedDates.reverse();
-                    var currentWeek = dates[sortedDates[0]];
-                    var previousWeek = dates[sortedDates[1]];
-                    if (currentWeek != 0 && previousWeek != 0){
-                        var difference = (currentWeek/previousWeek);
-                    }
-                })
-            });   
-            
-            var totalPurchases = MP.api.segment('Purchase', '$os', {from: moment().subtract(14, 'days'), unit:'week'});
-            totalPurchases.done(function(results){
-              
-                var values = _.keys(results.values());
-                _.each(values, function(value){
-                    dates = results.values()[value];
-                    /* sum over data in value of results.values()[key] */
-                    
-                    var sortedDates = _.keys(dates)
-                    var difference = 0;
-                    /* sort and reverse */
-                    sortedDates.sort();
-                    sortedDates.reverse();
-                    var currentWeek = dates[sortedDates[0]];
-                    var previousWeek = dates[sortedDates[1]];
-                    if (currentWeek != 0 && previousWeek != 0){
-                        var difference = (currentWeek/previousWeek)*100;
-                    }
-                })
-            });   
-            
-            /* Total + Licensed Content Purchases */
-            
-            
-            var purchases = MP.api.events('Licensed Content Purchases', 'Total Content Purchases', {from: moment().subtract(14, 'days'), unit: 'week'})
-            purchases.done(function(results) {
-                var values = _.keys(results.values())
-                _.each(values, function(value){
-                    dates = results.values()[value];
-                    /* sum over data in value of results.values()[key] */
-                    
-                    var sortedDates = _.keys(dates)
-                    var difference = 0;
-                    /* sort and reverse */
-                    sortedDates.sort();
-                    sortedDates.reverse();
-                    var currentWeek = dates[sortedDates[0]];
-                    var previousWeek = dates[sortedDates[1]];
-                    if (currentWeek != 0 && previousWeek != 0){
-                        var difference = (currentWeek/previousWeek)*100;
-                    }
-                })
-            });
+          /* Total Conversion */
+           var segParams = {
+              type: 'general',
+              limit: 10000,
+              to: moment(),
+              from: moment().subtract(12, 'months'),
+            }
+          var app = MP.api.segment('App Open', segParams)
+          var purch = MP.api.segment('Purchase', segParams)
+          $.when(app, purch).done(function(app, purch){
+            debugger
+            //redo this to truly account for % diff
+            // total downloads over time frame / app opens.
+            // Formulas cant work
+            var currentData =  percent(MP.Data.inst(purch.json["Purchase"]).sum().values(), MP.Data.inst(app.json["App Open"]).sum().values());
+            $('.conversion').text(String(currentData) + "%");
+          })
         }
         
 
