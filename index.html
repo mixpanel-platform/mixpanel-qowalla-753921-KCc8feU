@@ -399,8 +399,8 @@
             //redo this to truly account for % diff
             // total downloads over time frame / app opens.
             // Formulas cant work
-            var currentData =  percent(currentPurch, currentApp);
-            var pastData = percent(previousPurch, previousApp);
+            var currentData =  percent(MP.Data.inst(currentPurch.json["Purchase"]).sum().values(), MP.Data.inst(currentApp.json["App Open"]).sum().values());
+            var pastData = percent(percent(MP.Data.inst(previousPurch.json["Purchase"]).sum().values(), MP.Data.inst(previousApp.json["App Open"]).sum().values()));
             dataAdd('Conversion', currentData, pastData)
           })
           
