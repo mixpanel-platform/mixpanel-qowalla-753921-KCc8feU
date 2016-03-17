@@ -251,7 +251,6 @@
           var app = MP.api.segment('App Open', segParams)
           var purch = MP.api.segment('Purchase', segParams)
           $.when(app, purch).done(function(app, purch){
-            debugger
             //redo this to truly account for % diff
             // total downloads over time frame / app opens.
             // Formulas cant work
@@ -358,7 +357,6 @@
           var currentPurch = MP.api.segment('Purchase', _.extend(segParams, dateObj))
           var previousPurch = MP.api.segment('Purchase', _.extend(segParams, previousRange))
           $.when(currentApp, previousApp, currentPurch, previousPurch).done(function(currentApp, previousApp, currentPurch, previousPurch){
-            debugger
             //redo this to truly account for % diff
             // total downloads over time frame / app opens.
             // Formulas cant work
