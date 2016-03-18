@@ -293,7 +293,7 @@
             // make this sum of $ / # of purchases
             var currentData =  MP.Data.inst(current.results).avg().values().toFixed(2);
             var pastData = MP.Data.inst(previous.results).avg().values().toFixed(2);
-            dataAdd('Average Order Size', currentData, pastData)
+            dataAdd('Average Order Value', currentData, pastData)
           })
 
           var currPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, dateObj))
