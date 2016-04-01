@@ -158,9 +158,7 @@
         return value
       }
       
-        var dateSelect  = $('#dateSelect').datepicker({
-          maxDate: new Date(),
-        });
+        var dateSelect  = $('#dateSelect').MPdatepicker();
         
         $( "#dateSelect" ).datepicker( "setDate", new Date() )
         var options = {
@@ -272,6 +270,7 @@
 
         function tableData(){
           table.clear()
+          debugger
           var date = moment(dateSelect.val())
           
           var dateObj = {
