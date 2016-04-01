@@ -131,7 +131,6 @@
               </div>
               <div id="dateSelect"></div>
               <div style="clear: both;"></div>
-              <div id="dateRange"></div>
               <div class="panel-body">
                 <div id="datatable1_wrapper" class="dataTables_wrapper form-inline no-footer">
                   <div class="row">
@@ -159,16 +158,7 @@
       }
       
         var dateSelect  = $('#dateSelect').MPDatepicker();
-        
-        var options = {
-            items: [
-              {label: 'Day', value: 'day'},
-              {label: 'Week', value: 'week'},
-              {label: 'Month', value: 'month'},
-            ]
-        };
-        
-        var unit = $('#dateRange').MPSelect(options);
+
         var table = $('#table').DataTable( {
             columns: [
                 { title: "Metric" , data: 'Metric' },
