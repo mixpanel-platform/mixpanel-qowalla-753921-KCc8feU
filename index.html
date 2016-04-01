@@ -270,16 +270,17 @@
         function tableData(){
           table.clear()
           debugger
-          var date = moment(dateSelect.val())
+          var date = dateSelect.val()
           
           var dateObj = {
-            to: date.utc().format('YYYY-MM-DD'),
-            from: date.subtract(1, unit.val()).utc().format('YYYY-MM-DD')
+            to: moment(date.to).utc().format('YYYY-MM-DD'),
+            from: moment(date.from).utc().format('YYYY-MM-DD')
           }
           
+          var unit = dateObj.to.diff(dateObj.from)
           var previousRange = {
-            to: moment(dateObj.from).subtract(1, unit.val()).utc().format('YYYY-MM-DD'),
-            from: moment(dateObj.from).subtract(2, unit.val()).utc().format('YYYY-MM-DD')
+            to: moment(dateObj.to).subtract(unit).utc().format('YYYY-MM-DD'),
+            from: moment(dateObj.from).subtract(unit).utc().format('YYYY-MM-DD')
           }
           
           var purchParams = {
@@ -287,7 +288,7 @@
               type: 'general',
               limit: 10000,
               on: 'number(properties["Purchase Dollar Amount"])',
-              unit: unit.val(),
+              unit: 'day',
             }
             
           var currentAOV = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,dateObj), {dataType: 'json'})
@@ -312,7 +313,8 @@
           
           var downloadsParams = {
             where:'properties["First App Open"] == true', 
-            unit: 'month',type:'unique', 
+            unit: 'month',
+            type:'unique', 
           }
      
           
