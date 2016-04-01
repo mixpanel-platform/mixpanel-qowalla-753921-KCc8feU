@@ -269,7 +269,7 @@
 
         function tableData(){
           table.clear()
-          debugger
+          
           var date = dateSelect.val()
           
           var dateObj = {
@@ -295,7 +295,7 @@
           
           var previousAOV = MP.api.query('/api/2.0/segmentation/sum', _.extend(purchParams,previousRange), {dataType: 'json'})
           $.when(currentAOV, previousAOV).done(function(current, previous){
-            
+            debugger
             // make this sum of $ / # of purchases
             var currentData =  MP.Data.inst(current.results).avg().values().toFixed(2);
             var pastData = MP.Data.inst(previous.results).avg().values().toFixed(2);
@@ -306,6 +306,7 @@
           var previousPurch = MP.api.events('Purchase',_.extend({unit:unit.val()}, previousRange))
           
           $.when(currPurch, previousPurch).done(function(current, previous){
+              debugger
               var currentData =  MP.Data.inst(current.json["Purchase"]).avg().values();
               var pastData = MP.Data.inst(previous.json["Purchase"]).avg().values();
               dataAdd('Total Purchases', currentData, pastData)
@@ -323,12 +324,40 @@
           
           
           $.when(currDownloads, previousDownloads).done(function(current, previous) {
+              debugger
               var currentData =  MP.Data.inst(current.json["App Open"]).sum().values();
               var pastData = MP.Data.inst(previous.json["App Open"]).sum().values();
               dataAdd('Total Downloads', currentData, pastData)
             })
           
+
+          var formulaParams = {
+            formulas: [{"queries": [{"events": ["Purchase"], "count_type": "general"}, {"constant": 100}, {"events": ["App Open"], "count_type": "general"}], "formula": "(A*B)/(C)"}],
+            unit: unit.val()
+          }
           
+          var segParams = {
+              type: 'general',
+              limit: 10000,
+              unit: unit.val(),
+            }
+          var currentApp = MP.api.segment('App Open', _.extend(segParams, dateObj))
+          var previousApp = MP.api.segment('App Open', _.extend(segParams, previousRange))
+          var currentPurch = MP.api.segment('Purchase', _.extend(segParams, dateObj))
+          var previousPurch = MP.api.segment('Purchase', _.extend(segParams, previousRange))
+          $.when(currentApp, previousApp, currentPurch, previousPurch).done(function(currentApp, previousApp, currentPurch, previousPurch){
+            debugger
+            var currentData =  percent(MP.Data.inst(currentPurch.json["Purchase"]).sum().values(), MP.Data.inst(currentApp.json["App Open"]).sum().values());
+            var pastData = percent(MP.Data.inst(previousPurch.json["Purchase"]).sum().values(), MP.Data.inst(previousApp.json["App Open"]).sum().values());
+            percentAdd('Conversion Rate', currentData, pastData)
+          })
+          
+        }
+        
+        
+        
+        /*
+                  
           var checkoutParams = {
             length: 7,
             length_unit: 'day',
@@ -355,28 +384,7 @@
             percentAdd('Checkout Completion Rate', currentData, pastData)
           })
           
-          var formulaParams = {
-            formulas: [{"queries": [{"events": ["Purchase"], "count_type": "general"}, {"constant": 100}, {"events": ["App Open"], "count_type": "general"}], "formula": "(A*B)/(C)"}],
-            unit: unit.val()
-          }
-          
-          var segParams = {
-              type: 'general',
-              limit: 10000,
-              unit: unit.val(),
-            }
-          var currentApp = MP.api.segment('App Open', _.extend(segParams, dateObj))
-          var previousApp = MP.api.segment('App Open', _.extend(segParams, previousRange))
-          var currentPurch = MP.api.segment('Purchase', _.extend(segParams, dateObj))
-          var previousPurch = MP.api.segment('Purchase', _.extend(segParams, previousRange))
-          $.when(currentApp, previousApp, currentPurch, previousPurch).done(function(currentApp, previousApp, currentPurch, previousPurch){
-            var currentData =  percent(MP.Data.inst(currentPurch.json["Purchase"]).sum().values(), MP.Data.inst(currentApp.json["App Open"]).sum().values());
-            var pastData = percent(MP.Data.inst(previousPurch.json["Purchase"]).sum().values(), MP.Data.inst(previousApp.json["App Open"]).sum().values());
-            percentAdd('Conversion Rate', currentData, pastData)
-          })
-          
-        }
-        
+        */
 
         tableData()
         
