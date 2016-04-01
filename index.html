@@ -3,32 +3,44 @@
   <head>
     <meta charset="utf-8">
    
+    
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
-
-    
-    <!--  this is the source of the calendar problem
-    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
-    
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    
-    <!-- this is the source of the scrolling problem
-    <link rel="stylesheet" type="text/css" href="https://d621cde4587c562960fbe230744f42dc2304ca4f.googledrive.com/host/0BxwayM8qQaCVX0w4RExCOVdhbzQ"> -->
-    
     
     <link rel="stylesheet" type="text/css" href="https://5a4961e5c9f1459a1c463234568af125d8e1b386.googledrive.com/host/0BxwayM8qQaCVRmRCSDlXUUtMMncuni/">
     <link rel="stylesheet" type="text/css" href="https://201420392a7158f07d53a8f3e71606645ab03bd2.googledrive.com/host/0BxwayM8qQaCVQldvY2U5Um9FN3M">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+
+
     
-    
-<!-- this is the jQuery 'not defined' error    
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script> -->
-    
-    
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style>
+      .bg-primary {
+          background-color: #5d9cec;
+          color: #ffffff !important;
+      }
+      
+      
+      .bg-primary-dark {
+        background-color: #2f80e7;
+        color: #ffffff !important;
+      }
+      
+      .bg-purple {
+          background-color: #7266ba;
+          color: #ffffff !important;
+      }
+      .bg-purple-dark {
+          background-color: #564aa3;
+          color: #ffffff !important;
+      }
+    </style>
   </head>
   <body class="mixpanel-platform-body">
     <div class="content-wrapper">
@@ -225,7 +237,7 @@
             /* update datatable to meet the email from jennifer */
             var table = $('#datatable1').DataTable();
             table.clear();
-            
+            1
           /* Total Conversion */
            var segParams = {
               type: 'general',
