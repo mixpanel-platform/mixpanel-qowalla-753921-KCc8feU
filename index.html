@@ -277,7 +277,7 @@
             from: moment(date.from).utc().format('YYYY-MM-DD')
           }
           
-          var unit = (dateObj.to).diff(dateObj.from)
+          var unit = moment(dateObj.to).diff(moment(dateObj.from))
           var previousRange = {
             to: moment(dateObj.to).subtract(unit).utc().format('YYYY-MM-DD'),
             from: moment(dateObj.from).subtract(unit).utc().format('YYYY-MM-DD')
