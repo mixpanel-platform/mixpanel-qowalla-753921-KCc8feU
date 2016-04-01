@@ -38,6 +38,11 @@
         </div>
         <!-- START widgets box-->
         <div class="row">
+          <div class="col-12">
+          Launch to Date
+          </div>
+        </div>
+        <div class="row">
           <div class="col-lg-3 col-sm-3">
             <!-- START widget-->
             <div class="panel widget bg-primary">
@@ -207,7 +212,7 @@
           var period = null
           
           /* Query for total Downloads */
-          var downloadsQuery = MP.api.segment('App Open', {where:'properties["First App Open"] == true', unit: 'month',type:'unique', from: moment().subtract(12, 'months')})
+          var downloadsQuery = MP.api.segment('App Open', {where:'properties["First App Open"] == true', unit: 'month',type:'unique', from: '2015-11-01'})
           
           downloadsQuery.done(function(json) {
               /* Show this now */
@@ -223,7 +228,7 @@
               on: 'number(properties["Purchase Dollar Amount"])',
               unit: 'day',
               to: moment(),
-              from: moment().subtract(12, 'months'),
+              from: '2015-11-01',
             }
             
             var averageCart = MP.api.query('/api/2.0/segmentation/average', purchParams, {dataType: 'json'}) 
@@ -234,7 +239,7 @@
             });
             
             /* Year to Date Purchases */
-            var purchaseQuery = MP.api.events('Purchase', {from: moment().subtract(12, 'months'), unit: 'month'})
+            var purchaseQuery = MP.api.events('Purchase', {from: '2015-11-01', unit: 'month'})
             purchaseQuery.done(function(json){
                 var total = _.sum(_.values(json.values()['Purchase']));
                 $('.daily-actives').text(addCommas(total));
@@ -249,7 +254,7 @@
               type: 'general',
               limit: 10000,
               to: moment(),
-              from: moment().subtract(12, 'months'),
+              from: '2015-11-01',
             }
           var app = MP.api.segment('App Open', segParams)
           var purch = MP.api.segment('Purchase', segParams)
