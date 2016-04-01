@@ -332,8 +332,8 @@
           
                 var currentUsers = 0
                 var currentConv = 0
-                _.each(current[0], function(val, key){ currentUsers += val.count})
-                _.each(current[current.length - 1], function(val, key){ currentConv += val.count})
+                _.each(results[0], function(val, key){ currentUsers += val.count})
+                _.each(results[results.length - 1], function(val, key){ currentConv += val.count})
                 console.log(results);
                 var currentData = percent(currentConv, currentUsers);
                 console.log(currentData)
