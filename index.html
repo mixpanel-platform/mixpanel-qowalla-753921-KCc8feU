@@ -41,8 +41,6 @@
           border: 0;
       }
       
-      
-      
       .row-table > [class*="col-"] {
           display: table-cell;
           float: none;
@@ -205,7 +203,8 @@
         var dateSelect  = $('#dateSelect').MPDatepicker();
 
         var table = $('#table').DataTable( {
-           "paging": false,
+           paging: false,
+           searching: false,
             columns: [
                 { title: "Metric" , data: 'Metric' },
                 { title: "Current", data: 'Current' },
