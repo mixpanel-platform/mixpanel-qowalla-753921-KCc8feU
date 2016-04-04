@@ -195,13 +195,7 @@
        Rip funnel to just give a conversion rate over a date range (90 day limit)
       */
       /* Get top events */
-      function percent(numerator, denominator){
-        var value = 0
-        if (denominator != 0){
-          value = Math.floor( numerator / denominator * 10000) / 100
-        }
-        return value
-      }
+     
       
         var dateSelect  = $('#dateSelect').MPDatepicker();
         var dateConv  = $('#dateConv').MPDatepicker();
@@ -227,13 +221,7 @@
           query()
         });
 
-        function toTitleCase(str){
-          return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-        }
-
-        function addCommas(intNum) {
-          return (intNum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,');
-        }
+      
 
         function query() {
           /* 
@@ -395,7 +383,6 @@
           
           var eventList = [{"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}]
           eventList.push( _.extend(checkoutParams,dateConv.val()));
-          var eventGraph  = $('#graph').MPChart({chartType: 'line'});
           var currCheckout =  MP.api.funnel.apply(MP.api, eventList).done(function(results) {
           
                 // var currentUsers = 0
@@ -406,7 +393,6 @@
                 // var currentData = percent(currentConv, currentUsers);
                 console.log(results);
                 processResults(results, dateConv.val()['from']);
-                //eventTable.MPTable('setData', results);
               });
         }
         /*  
@@ -433,10 +419,22 @@
         tableData()
         
         dateSelect.on('change', tableData)
+        dateConv.on('change', tableData)
+        
         function pad(d) {
             return (d < 10) ? '0' + d.toString() : d.toString();
         }
         
+        function processResults(results, from) {
+          var dates = Object.keys(results[0]);
+          debugger
+          var finalResults = { Conversions: {} };
+          _.each(dates, function(date){
+            finalResults['Conversions'][date] = Math.floor((results[results.length - 1][date]['count'] / results[0][date]['count']) * 10000) / 100;
+          })
+          eventGraph.MPChart('setData', finalResults);
+        };
+               
         function dataAdd(metric, current, previous){
           var difference = current - previous
           table.row.add({
@@ -446,15 +444,6 @@
             "Difference": difference.toFixed(2)
           }).draw();
         }
-        var processResults = function(results, from) {
-          var dates = Object.keys(results[0]);
-          debugger
-          var finalResults = { Conversions: {} };
-          _.each(dates, function(date){
-            finalResults['Conversions'][date] = Math.floor((results[results.length - 1][date]['count'] / results[0][date]['count']) * 10000) / 100;
-          })
-          eventGraph.MPChart('setData', finalResults);
-        };
         
         function percentAdd(metric, current, previous){
           var difference = current - previous
@@ -464,6 +453,22 @@
             "Previous": String(previous) + "%",
             "Difference": String(difference.toFixed(2)) + "%"
           }).draw();
+        }
+        
+          function toTitleCase(str){
+          return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+        }
+
+        function addCommas(intNum) {
+          return (intNum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+        }
+        
+        function percent(numerator, denominator){
+          var value = 0
+          if (denominator != 0){
+            value = Math.floor( numerator / denominator * 10000) / 100
+          }
+          return value
         }
     </script>
   </body>
