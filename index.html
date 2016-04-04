@@ -384,37 +384,10 @@
           var eventList = [{"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}]
           eventList.push( _.extend(checkoutParams,dateConv.val()));
           var currCheckout =  MP.api.funnel.apply(MP.api, eventList).done(function(results) {
-          
-                // var currentUsers = 0
-                // var currentConv = 0
-                // _.each(results[0], function(val, key){ currentUsers += val.count})
-                // _.each(results[results.length - 1], function(val, key){ currentConv += val.count})
-                // console.log(results);
-                // var currentData = percent(currentConv, currentUsers);
                 console.log(results);
                 processResults(results, dateConv.val()['from']);
               });
         }
-        /*  
-         
-          // modify it out of the table allow them to select a date and limit date picker to 90 days
-          
-          $.when(currCheckout, previousCheckout).done(function(current, previous){
-            var currentUsers = 0
-            var currentConv = 0
-            var prevUsers = 0
-            var prevConv = 0
-            
-            _.each(previous[0], function(val, key){ prevUsers += val.count})
-            _.each(previous[previous.length - 1], function(val, key){ prevConv += val.count})
-            if (currentUsers == 0) { currentUsers = 1}
-            if (prevUsers == 0) { prevUsers = 1}
-            var currentData = percent(currentConv, currentUsers);
-            var pastData = percent(prevConv, prevUsers);
-            percentAdd('Checkout Completion Rate', currentData, pastData)
-          })
-          
-        */
 
         tableData()
         
@@ -430,7 +403,7 @@
           debugger
           var finalResults = { Conversions: {} };
           _.each(dates, function(date){
-            finalResults['Conversions'][date] = Math.floor((results[results.length - 1][date]['count'] / results[0][date]['count']) * 10000) / 100;
+            finalResults['Conversions'][date] = Math.floor((results[results.length - 1][date]['count'] / results[0][date]['count']) * 10000) / 100 || 0;
           })
           eventGraph.MPChart('setData', finalResults);
         };
