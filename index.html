@@ -178,7 +178,6 @@
                     <table id="table" class="display" width="100%"></table>
                   </div>
                   <div class="row">
-                    <div id="dateConv"></div>
                     <div style="clear: both;"></div>
                     <div id="graph"></div>
                   </div>
@@ -198,7 +197,6 @@
      
       
         var dateSelect  = $('#dateSelect').MPDatepicker();
-        var dateConv  = $('#dateConv').MPDatepicker();
         var eventGraph  = $('#graph').MPChart({chartType: 'line'});
 
         var table = $('#table').DataTable( {
@@ -382,23 +380,22 @@
           }
           
           var eventList = [{"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}]
-          eventList.push( _.extend(checkoutParams,dateConv.val()));
+          eventList.push( _.extend(checkoutParams,dateObj));
           var currCheckout =  MP.api.funnel.apply(MP.api, eventList).done(function(results) {
                 console.log(results);
-                processResults(results, dateConv.val()['from']);
+                processResults(results);
               });
         }
 
         tableData()
         
         dateSelect.on('change', tableData)
-        dateConv.on('change', tableData)
-        
+
         function pad(d) {
             return (d < 10) ? '0' + d.toString() : d.toString();
         }
         
-        function processResults(results, from) {
+        function processResults(results) {
           var dates = Object.keys(results[0]);
           debugger
           var finalResults = { Conversions: {} };
