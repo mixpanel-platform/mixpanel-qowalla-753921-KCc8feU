@@ -178,6 +178,8 @@
                     <table id="table" class="display" width="100%"></table>
                   </div>
                   <div class="row">
+                    <div id="dateConv"></div>
+                    <div style="clear: both;"></div>
                     <div id="graph"></div>
                   </div>
                 </div>
@@ -202,6 +204,7 @@
       }
       
         var dateSelect  = $('#dateSelect').MPDatepicker();
+        var dateConv  = $('#dateConv').MPDatepicker();
 
         var table = $('#table').DataTable( {
            paging: false,
@@ -390,7 +393,7 @@
           }
           
           var eventList = [{"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}]
-          eventList.push( _.extend(checkoutParams,dateObj));
+          eventList.push( _.extend(checkoutParams,dateConv.val()));
           var eventGraph  = $('#graph').MPChart({chartType: 'line'});
           var currCheckout =  MP.api.funnel.apply(MP.api, eventList).done(function(results) {
           
@@ -401,7 +404,7 @@
                 // console.log(results);
                 // var currentData = percent(currentConv, currentUsers);
                 console.log(results);
-                processResults(results, params['from']);
+                processResults(results, dateConv.val()['from']);
                 //eventTable.MPTable('setData', results);
               });
         }
