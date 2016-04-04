@@ -177,12 +177,15 @@
                   <div class="row">
                     <table id="table" class="display" width="100%"></table>
                   </div>
+                  <div class="row">
+                    <div id="graph"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
+    </div>
 
     <script>
       /* Modify table to use date selector
@@ -388,18 +391,20 @@
           
           var eventList = [{"event":"Shopping Cart"},{"event":"Address Information"},{"event":"Shipping Method"},{"event":"Payment Method"},{"event":"Order Review"},{"event":"Purchase"}]
           eventList.push( _.extend(checkoutParams,dateObj));
-          
+          var eventGraph  = $('#graph').MPChart({chartType: 'line'});
           var currCheckout =  MP.api.funnel.apply(MP.api, eventList).done(function(results) {
           
-                var currentUsers = 0
-                var currentConv = 0
-                _.each(results[0], function(val, key){ currentUsers += val.count})
-                _.each(results[results.length - 1], function(val, key){ currentConv += val.count})
+                // var currentUsers = 0
+                // var currentConv = 0
+                // _.each(results[0], function(val, key){ currentUsers += val.count})
+                // _.each(results[results.length - 1], function(val, key){ currentConv += val.count})
+                // console.log(results);
+                // var currentData = percent(currentConv, currentUsers);
                 console.log(results);
-                var currentData = percent(currentConv, currentUsers);
-                console.log(currentData)
-                debugger
+                processResults(results, params['from']);
                 //eventTable.MPTable('setData', results);
+              });
+            }
               });
         }
         /*  
@@ -439,6 +444,15 @@
             "Difference": difference.toFixed(2)
           }).draw();
         }
+        var processResults = function(results, from) {
+          var dates = Object.keys(results[0]);
+          debugger
+          var finalResults = { Conversions: {} };
+          _.each(dates, function(date){
+            finalResults['Conversions'][date] = Math.floor((results[results.length - 1][date]['count'] / results[0][date]['count']) * 10000) / 100;
+          })
+          eventGraph.MPChart('setData', finalResults);
+        };
         
         function percentAdd(metric, current, previous){
           var difference = current - previous
